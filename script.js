@@ -38,7 +38,7 @@ const config = {
 
 for (let key in config) {
     if (localStorage.getItem(key) === null)
-    localStorage.setItem(key, config[key]);
+        localStorage.setItem(key, config[key]);
 }
 
 function rand(start, end) {
@@ -63,10 +63,18 @@ function generatePassword() {
         const queue = [];
         for (let j = 0; j < n; j++) {
             const q = symbols[rand(0, symbols.length)];
-            queue.push(q);            
+            queue.push(q);
         }
         cascade.push([...queue, x]);
         password.push(x);
+
+        const interval = setInterval(() => {
+            for (let i = 0; i < 10; i++) {
+                label.textContent = cascade[0][i];
+            }
+        }, 200);
+
+        setTimeout(clearInterval(interval), 5000);
     }
     console.log(password);
     console.log(cascade);

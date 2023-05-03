@@ -88,9 +88,10 @@ function generatePassword() {
 
 function getDigits() {
     const digits = localStorage.getItem("digits");
-    if (digits !== "") {
+    const digitsSymbols = localStorage.getItem("digitsSymbols");
+    if (digits !== "0") {
         digitsInput.checked = true;
-        for (let digit of digits) {
+        for (let digit of digitsSymbols) {
             digitsSymbols.querySelector(`input[value='${digit}']`).checked = true;
         }
     }
@@ -110,10 +111,11 @@ function checkAllDigits() {
 function enableDigits() {
     if (!digitsInput.checked) {
         digitsSymbols.querySelectorAll("input").forEach(e => e.disabled = true);
-        localStorage.setItem("digits", "");
+        localStorage.setItem("digits", "0");
     }
     else {
         digitsSymbols.querySelectorAll("input").forEach(e => e.disabled = false);
+        localStorage.setItem("digits", "1");
     }
 }
 

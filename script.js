@@ -1,5 +1,6 @@
 const passwordInput = document.querySelector("#password");
 const lengthInput = document.querySelector("#password-length");
+lengthInput.addEventListener("input", setLength);
 const lengthOutput = document.querySelector("output[for='password-length']");
 const uppercaseInput = document.querySelector("#uppercase");
 const uppercaseSymbols = document.querySelector("#uppercase-symbols");
@@ -48,10 +49,10 @@ function rand(start, end) {
 const cascadeBlock = document.querySelector("#cascade");
 
 function generatePassword() {
+    cascadeBlock.innerHTML = "";
     const symbols = config.digitsSymbols + config.lowercaseSymbols;
-    const cascade = [];
     const password = [];
-    for (let i = 0; i < config.totalLength; i++) {
+    for (let i = 0; i < localStorage.totalLength; i++) {
 
         const label = document.createElement("div");
         label.classList.add("symbol-label");
@@ -65,19 +66,20 @@ function generatePassword() {
             const q = symbols[rand(0, symbols.length)];
             queue.push(q);
         }
-        cascade.push([...queue, x]);
+        queue.push(x);
         password.push(x);
+        go(label, queue);
 
-        const interval = setInterval(() => {
-            for (let i = 0; i < 10; i++) {
-                label.textContent = cascade[0][i];
+        function go(label, queue) {
+            const time = rand(20, 100);
+            for (let i = 0; i < queue.length; i++) {
+                const t = setTimeout(() => {
+                    label.textContent = queue[i];
+                }, i * time);
             }
-        }, 200);
-
-        setTimeout(clearInterval(interval), 5000);
+        }
     }
     console.log(password);
-    console.log(cascade);
     passwordInput.value = password.join("");
     return password;
 }
@@ -118,6 +120,10 @@ function enableDigits() {
 function getPasswordLength(event) {
     lengthOutput.textContent = lengthInput.value;
     return +lengthInput.value;
+}
+
+function setLength() {
+    localStorage.setItem("totalLength", lengthInput.value)
 }
 
 function showLocalStorage() {

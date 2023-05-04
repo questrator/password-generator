@@ -1,3 +1,7 @@
+:root {
+    font-family: "Open Sans", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
 #cascade {
     display: flex;
     gap: 2px;
@@ -8,7 +12,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 12px;
+    width: 16px;
     height: 30px;
-    background-color: #cccccc;
+    background-color: #e8e8e8;
+    font-weight: 600;
+    border-radius: 2px;
+}
+
+.number {
+    color: #2c7ce4;
+}
+
+.char {
+    color: #3c3c3c;
 }

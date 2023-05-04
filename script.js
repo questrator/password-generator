@@ -67,6 +67,7 @@ function generatePassword() {
             queue.push(q);
         }
         queue.push(x);
+        console.log(queue)
         password.push(x);
         go(label, queue);
 
@@ -74,7 +75,7 @@ function generatePassword() {
             const time = rand(20, 100);
             for (let i = 0; i < queue.length; i++) {
                 const t = setTimeout(() => {
-                    label.textContent = queue[i];
+                    label.innerHTML = Number.isNaN(+queue[i]) ? `<span class='char'>${queue[i]}</span>` : `<span class='number'>${queue[i]}</span>`;
                 }, i * time);
             }
         }
